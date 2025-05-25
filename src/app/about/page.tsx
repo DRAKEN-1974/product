@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { FaTools, FaCar, FaUserCog, FaClock } from 'react-icons/fa'
@@ -18,7 +17,6 @@ export default function Page() {
   const { scrollYProgress } = useScroll()
   const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
   const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.98])
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
   const services: ServiceItem[] = [
     {
@@ -59,7 +57,6 @@ export default function Page() {
             loop
             playsInline
             className="hero-video"
-            onLoadedData={() => setIsVideoLoaded(true)}
           >
             <source src="/about1.mp4" type="video/mp4" />
           </video>
