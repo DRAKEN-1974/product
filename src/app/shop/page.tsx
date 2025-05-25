@@ -5,13 +5,18 @@ import styles from "./shop.module.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { supabase } from "@/lib/supabase";
+import Image from "next/image";
 
 interface Product {
   id: string;
   name: string;
   price: number;
-  imageurl: string; // Note: Supabase column is likely "imageurl"
+  imageurl: string;
   description?: string;
+}
+
+function isExternal(url: string) {
+  return /^https?:\/\//.test(url);
 }
 
 const ShopPage: React.FC = () => {
@@ -58,7 +63,27 @@ const ShopPage: React.FC = () => {
             <div className={styles.grid}>
               {products.map(product => (
                 <div key={product.id} className={styles.card}>
-                  <img src={product.imageurl} alt={product.name} className={styles.image} />
+                  {isExternal(product.imageurl) ? (
+                    <img
+                      src={product.imageurl}
+                      alt={product.name}
+                      className={styles.image}
+                      width={180}
+                      height={120}
+                      style={{ objectFit: "cover" }}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <Image
+                      src={product.imageurl || "/placeholder.png"}
+                      alt={product.name}
+                      className={styles.image}
+                      width={180}
+                      height={120}
+                      style={{ objectFit: "cover" }}
+                      priority={false}
+                    />
+                  )}
                   <h3 className={styles.productName}>{product.name}</h3>
                   <p className={styles.description}>
                     {product.description || <span style={{ opacity: 0.5 }}>No description</span>}
