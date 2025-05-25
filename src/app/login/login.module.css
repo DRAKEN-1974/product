@@ -1,9 +1,4 @@
-/* Removed :root block, added fallbacks everywhere */
-
-html, body {
-  background: var(--black, #000);
-  color: var(--black, #000);
-}
+/* Only class selectors, fallbacks everywhere */
 
 .loginPageOuter {
   min-height: 100vh;
