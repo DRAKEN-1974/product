@@ -41,12 +41,15 @@ interface Profile {
   name: string;
   coins: number;
   role: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 function isExternal(url: string) {
   return /^https?:\/\//.test(url);
 }
+
+// Custom loader for external images (for Next.js Image)
+const externalImageLoader = ({ src }: { src: string }) => src;
 
 export default function WorkerDashboard() {
   const router = useRouter();
@@ -396,24 +399,17 @@ export default function WorkerDashboard() {
                 {merchandise.length === 0 && <p>No merchandise available.</p>}
                 {merchandise.map((m) => (
                   <div key={m.id} className={styles.card}>
-                    {isExternal(m.imageurl) ? (
-                      <img
-                        src={m.imageurl}
-                        alt={m.name}
-                        className={styles.image}
-                        style={{ maxHeight: 100, marginBottom: 12 }}
-                      />
-                    ) : (
-                      <Image
-                        src={m.imageurl || "/placeholder.png"}
-                        alt={m.name}
-                        className={styles.image}
-                        width={120}
-                        height={100}
-                        style={{ marginBottom: 12, objectFit: "cover" }}
-                        priority={false}
-                      />
-                    )}
+                    <Image
+                      src={m.imageurl || "/placeholder.png"}
+                      alt={m.name}
+                      className={styles.image}
+                      width={120}
+                      height={100}
+                      style={{ marginBottom: 12, objectFit: "cover" }}
+                      priority={false}
+                      loader={isExternal(m.imageurl) ? externalImageLoader : undefined}
+                      unoptimized={isExternal(m.imageurl)}
+                    />
                     <h4 style={{ fontWeight: 700, marginBottom: 10 }}>{m.name}</h4>
                     <p className={styles.description}>{m.description}</p>
                     <div style={{ fontWeight: 700, fontSize: "1.13rem", margin: "10px 0 18px 0" }}>
