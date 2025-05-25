@@ -5,19 +5,21 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase' // adjust if your path is different
+import { supabase } from '@/lib/supabase'
 import './Navbar.css'
+import type { User } from '@supabase/supabase-js'
+
+type Role = string | null
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [user, setUser] = useState<any>(null)
-  const [role, setRole] = useState<string | null>(null)
+  const [user, setUser] = useState<User | null>(null)
+  const [role, setRole] = useState<Role>(null)
   const [loading, setLoading] = useState(true)
   const pathname = usePathname()
   const router = useRouter()
 
   useEffect(() => {
-    // Set scroll state
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
@@ -26,13 +28,11 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
-    // Check user on mount
     const fetchUserAndRole = async () => {
       const { data } = await supabase.auth.getUser()
       setUser(data.user)
       if (data.user) {
-        // Fetch user profile role if logged in
-        const { data: profile, error } = await supabase
+        const { data: profile } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', data.user.id)
@@ -44,7 +44,6 @@ export default function Navbar() {
       setLoading(false)
     }
     fetchUserAndRole()
-    // Listen for auth changes
     const { data: listener } = supabase.auth.onAuthStateChange(async (_, session) => {
       setUser(session?.user ?? null)
       if (session?.user) {
@@ -59,7 +58,7 @@ export default function Navbar() {
       }
     })
     return () => {
-      listener.subscription.unsubscribe()
+      listener?.subscription?.unsubscribe()
     }
   }, [])
 
@@ -70,17 +69,25 @@ export default function Navbar() {
     { name: 'Contact', href: '/contact' }
   ]
 
-  // Handle logout
   const handleLogout = async () => {
     await supabase.auth.signOut()
     setUser(null)
     setRole(null)
-    router.refresh() // Refresh current page to update UI
+    router.refresh()
   }
 
-  // Auth Buttons
   const renderAuthButtons = () => {
-    if (loading) return null
+    if (loading) {
+      return (
+        <motion.button 
+          className="login-button"
+          disabled
+          style={{ opacity: 0.6, pointerEvents: 'none' }}
+        >
+          <i className="fas fa-user"></i> Loading...
+        </motion.button>
+      )
+    }
     if (user) {
       if (role === 'admin') {
         return (
@@ -129,7 +136,6 @@ export default function Navbar() {
           </>
         )
       } else {
-        // Logged in but no role
         return (
           <motion.button
             className="login-button"
@@ -142,7 +148,6 @@ export default function Navbar() {
         )
       }
     } else {
-      // Not logged in: show Login button
       return (
         <Link href="/login">
           <motion.button 
