@@ -19,6 +19,9 @@ function isExternal(url: string) {
   return /^https?:\/\//.test(url);
 }
 
+// Custom loader for external images (required by Next.js Image)
+const externalImageLoader = ({ src }: { src: string }) => src;
+
 const ShopPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -63,27 +66,17 @@ const ShopPage: React.FC = () => {
             <div className={styles.grid}>
               {products.map(product => (
                 <div key={product.id} className={styles.card}>
-                  {isExternal(product.imageurl) ? (
-                    <img
-                      src={product.imageurl}
-                      alt={product.name}
-                      className={styles.image}
-                      width={180}
-                      height={120}
-                      style={{ objectFit: "cover" }}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <Image
-                      src={product.imageurl || "/placeholder.png"}
-                      alt={product.name}
-                      className={styles.image}
-                      width={180}
-                      height={120}
-                      style={{ objectFit: "cover" }}
-                      priority={false}
-                    />
-                  )}
+                  <Image
+                    src={product.imageurl || "/placeholder.png"}
+                    alt={product.name}
+                    className={styles.image}
+                    width={180}
+                    height={120}
+                    style={{ objectFit: "cover" }}
+                    priority={false}
+                    loader={isExternal(product.imageurl) ? externalImageLoader : undefined}
+                    unoptimized={isExternal(product.imageurl)}
+                  />
                   <h3 className={styles.productName}>{product.name}</h3>
                   <p className={styles.description}>
                     {product.description || <span style={{ opacity: 0.5 }}>No description</span>}
