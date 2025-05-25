@@ -58,7 +58,6 @@ export default function AuthPage() {
         { id: data.user.id, name, role: "pending", email, coins: 0 }
       ]);
       if (profileError) {
-        console.error("Supabase profile insert error:", profileError);
         setError(
           (profileError.message ? profileError.message + " | " : "") +
           (profileError.details ? "Details: " + profileError.details + " | " : "") +
@@ -128,81 +127,118 @@ export default function AuthPage() {
   };
 
   return (
-    <div className={styles.loginPageWrapper}>
-      <form onSubmit={handleAuth} className={styles.formWrapper}>
-        <h2 className={styles.formTitle}>{isRegister ? "Worker Registration" : "Login"}</h2>
-        {isRegister && (
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            required
-            className={styles.input}
-          />
-        )}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-          className={styles.input}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-          className={styles.input}
-        />
-        <button
-          type="submit"
-          className={styles.button}
-          disabled={loading}
-        >
-          {loading ? "Processing..." : isRegister ? "Register as Worker" : "Login"}
-        </button>
-        {error && (
-          <>
+    <div className={styles.loginPageOuter}>
+      <div className={styles.loginPageWrapper}>
+        <div className={styles.leftPanel}>
+          <div className={styles.brand}>
+            <span className={styles.appleCircle} />
+            <span className={styles.brandText}>AutoCare</span>
+          </div>
+          <h1 className={styles.headline}>
+            {isRegister ? "Create an Account" : "Welcome Back"}
+          </h1>
+          <p className={styles.subtext}>
+            {isRegister
+              ? "Register to join the AutoCare team. Your account will require admin approval."
+              : "Sign in to your dashboard to manage your bookings and services."}
+          </p>
+        </div>
+        <form onSubmit={handleAuth} className={styles.formWrapper} autoComplete="off">
+          <h2 className={styles.formTitle}>
+            {isRegister ? "Worker Registration" : "Login"}
+          </h2>
+          {isRegister && (
+            <div className={styles.inputGroup}>
+              <label htmlFor="name">
+                <span>Full Name</span>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Full Name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  required
+                  className={styles.input}
+                  autoComplete="off"
+                />
+              </label>
+            </div>
+          )}
+          <div className={styles.inputGroup}>
+            <label htmlFor="email">
+              <span>Email</span>
+              <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                className={styles.input}
+                autoComplete="username"
+              />
+            </label>
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">
+              <span>Password</span>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                className={styles.input}
+                autoComplete="current-password"
+              />
+            </label>
+          </div>
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={loading}
+          >
+            {loading ? (
+              <span className={styles.loadingSpinner}></span>
+            ) : isRegister ? "Register as Worker" : "Login"}
+          </button>
+          {error && (
             <div className={styles.errorMsg}>
               {error}
             </div>
-            {/* Development: show raw error if needed */}
-            {/* <pre style={{ color: "red", fontSize: "0.85em" }}>{JSON.stringify(error, null, 2)}</pre> */}
-          </>
-        )}
-        <div className={styles.switchText}>
-          {isRegister ? (
-            <>
-              Already have an account?{" "}
-              <span
-                className={styles.linkText}
-                onClick={() => setIsRegister(false)}
-              >
-                Login
-              </span>
-            </>
-          ) : (
-            <>
-              Worker?{" "}
-              <span
-                className={styles.linkText}
-                onClick={() => setIsRegister(true)}
-              >
-                Register
-              </span>
-            </>
           )}
-        </div>
-        {isRegister && (
-          <div style={{ color: "#888", fontSize: "0.93rem", marginTop: "8px", textAlign: "center" }}>
-            <b>Note:</b> Admin registration is not allowed here.<br />
-            Worker accounts must be approved by admin before login is possible.
+          <div className={styles.switchText}>
+            {isRegister ? (
+              <>
+                Already have an account?{" "}
+                <span
+                  className={styles.linkText}
+                  onClick={() => setIsRegister(false)}
+                >
+                  Login
+                </span>
+              </>
+            ) : (
+              <>
+                Worker?{" "}
+                <span
+                  className={styles.linkText}
+                  onClick={() => setIsRegister(true)}
+                >
+                  Register
+                </span>
+              </>
+            )}
           </div>
-        )}
-      </form>
+          {isRegister && (
+            <div className={styles.note}>
+              <b>Note:</b> Admin registration is not allowed here.<br />
+              Worker accounts must be approved by admin before login is possible.
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
