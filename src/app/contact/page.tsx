@@ -116,7 +116,7 @@ export default function ContactPage() {
           transition={{ duration: 0.8 }}
         >
           <h1>Get in Touch</h1>
-          <p>We had love to hear from you. Send us a message and we will respond as soon as possible.</p>
+          <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
         </motion.div>
 
         {/* Contact Information Cards */}
@@ -169,7 +169,7 @@ export default function ContactPage() {
             >
               <div className={styles.formHeader}>
                 <h2>Send us a Message</h2>
-                <p>Fill out the form below and we will get back to you shortly.</p>
+                <p>Fill out the form below and we'll get back to you shortly.</p>
               </div>
 
               <motion.div className={styles.inputGroup} variants={itemVariants}>
