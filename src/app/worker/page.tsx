@@ -6,6 +6,8 @@ import { supabase } from "@/lib/supabase";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "./worker-dashboard.module.css";
+import Image from "next/image";
+import type { User } from "@supabase/supabase-js";
 
 // Sidebar sections
 const SIDEBAR_SECTIONS = [
@@ -34,10 +36,22 @@ interface Merchandise {
   redeemed_by?: string[];
 }
 
+interface Profile {
+  id: string;
+  name: string;
+  coins: number;
+  role: string;
+  [key: string]: any;
+}
+
+function isExternal(url: string) {
+  return /^https?:\/\//.test(url);
+}
+
 export default function WorkerDashboard() {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [coins, setCoins] = useState<number>(0);
@@ -124,7 +138,7 @@ export default function WorkerDashboard() {
       return;
     }
     // Check if already redeemed
-    if (coupon.redeemed_by && coupon.redeemed_by.includes(user.id)) {
+    if (coupon.redeemed_by && coupon.redeemed_by.includes(user!.id)) {
       setRedeemStatus("You have already redeemed this coupon.");
       return;
     }
@@ -133,8 +147,8 @@ export default function WorkerDashboard() {
       .from("coupons")
       .update({
         redeemed_by: coupon.redeemed_by
-          ? [...coupon.redeemed_by, user.id]
-          : [user.id],
+          ? [...coupon.redeemed_by, user!.id]
+          : [user!.id],
       })
       .eq("id", coupon.id);
     if (updateCouponErr) {
@@ -145,7 +159,7 @@ export default function WorkerDashboard() {
     const { error: updateProfileErr } = await supabase
       .from("profiles")
       .update({ coins: (profile?.coins ?? 0) + coupon.coins })
-      .eq("id", user.id);
+      .eq("id", user!.id);
     if (updateProfileErr) {
       setRedeemStatus("Failed to update coins. Contact admin.");
       return;
@@ -164,7 +178,7 @@ export default function WorkerDashboard() {
     const { data: latestProfile, error: profileError } = await supabase
       .from("profiles")
       .select("*")
-      .eq("id", user.id)
+      .eq("id", user!.id)
       .single();
 
     if (profileError || !latestProfile) {
@@ -184,7 +198,7 @@ export default function WorkerDashboard() {
     }
 
     // Check if user already redeemed this merchandise
-    if (latestMerch.redeemed_by && latestMerch.redeemed_by.includes(user.id)) {
+    if (latestMerch.redeemed_by && latestMerch.redeemed_by.includes(user!.id)) {
       setMerchRedeemStatus("You have already redeemed this merchandise.");
       return;
     }
@@ -201,8 +215,8 @@ export default function WorkerDashboard() {
       .from("merchandise")
       .update({
         redeemed_by: latestMerch.redeemed_by
-          ? [...latestMerch.redeemed_by, user.id]
-          : [user.id],
+          ? [...latestMerch.redeemed_by, user!.id]
+          : [user!.id],
       })
       .eq("id", merch.id);
 
@@ -215,7 +229,7 @@ export default function WorkerDashboard() {
     const { error: updateProfileErr } = await supabase
       .from("profiles")
       .update({ coins: (latestProfile.coins ?? 0) - latestMerch.coins })
-      .eq("id", user.id);
+      .eq("id", user!.id);
 
     if (updateProfileErr) {
       // Rollback: remove user from redeemed_by array (best-effort, optional)
@@ -382,12 +396,24 @@ export default function WorkerDashboard() {
                 {merchandise.length === 0 && <p>No merchandise available.</p>}
                 {merchandise.map((m) => (
                   <div key={m.id} className={styles.card}>
-                    <img
-                      src={m.imageurl}
-                      alt={m.name}
-                      className={styles.image}
-                      style={{ maxHeight: 100, marginBottom: 12 }}
-                    />
+                    {isExternal(m.imageurl) ? (
+                      <img
+                        src={m.imageurl}
+                        alt={m.name}
+                        className={styles.image}
+                        style={{ maxHeight: 100, marginBottom: 12 }}
+                      />
+                    ) : (
+                      <Image
+                        src={m.imageurl || "/placeholder.png"}
+                        alt={m.name}
+                        className={styles.image}
+                        width={120}
+                        height={100}
+                        style={{ marginBottom: 12, objectFit: "cover" }}
+                        priority={false}
+                      />
+                    )}
                     <h4 style={{ fontWeight: 700, marginBottom: 10 }}>{m.name}</h4>
                     <p className={styles.description}>{m.description}</p>
                     <div style={{ fontWeight: 700, fontSize: "1.13rem", margin: "10px 0 18px 0" }}>
@@ -396,7 +422,7 @@ export default function WorkerDashboard() {
                     </div>
                     <button
                       className={styles.button}
-                      disabled={coins < m.coins || (m.redeemed_by && m.redeemed_by.includes(user.id))}
+                      disabled={coins < m.coins || (m.redeemed_by && m.redeemed_by.includes(user!.id))}
                       onClick={() => handleRedeemMerchandise(m)}
                       style={{
                         marginTop: 10,
@@ -409,7 +435,7 @@ export default function WorkerDashboard() {
                         minWidth: "120px"
                       }}
                     >
-                      {m.redeemed_by && m.redeemed_by.includes(user.id)
+                      {m.redeemed_by && m.redeemed_by.includes(user!.id)
                         ? "Redeemed"
                         : coins < m.coins
                         ? "Not enough coins"
