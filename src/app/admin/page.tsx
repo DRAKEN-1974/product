@@ -6,6 +6,8 @@ import { supabase } from "@/lib/supabase";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "./admin-dashboard.module.css";
+import Image from "next/image";
+import type { User } from "@supabase/supabase-js";
 
 interface Product {
   id: string;
@@ -72,9 +74,13 @@ const SIDEBAR_SECTIONS = [
   { key: "contact", label: "Contact Messages" },
 ];
 
+function isExternal(url: string) {
+  return /^https?:\/\//.test(url);
+}
+
 export default function AdminDashboard() {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Sidebar section state
@@ -569,11 +575,23 @@ export default function AdminDashboard() {
                   {products.length === 0 && <p>No products yet.</p>}
                   {products.map((product) => (
                     <div key={product.id} className={styles.card}>
-                      <img
-                        src={product.imageurl}
-                        alt={product.name}
-                        className={styles.image}
-                      />
+                      {isExternal(product.imageurl) ? (
+                        <img
+                          src={product.imageurl}
+                          alt={product.name}
+                          className={styles.image}
+                        />
+                      ) : (
+                        <Image
+                          src={product.imageurl || "/placeholder.png"}
+                          alt={product.name}
+                          className={styles.image}
+                          width={200}
+                          height={150}
+                          style={{ objectFit: "cover" }}
+                          priority={false}
+                        />
+                      )}
                       <h3>{product.name}</h3>
                       <p className={styles.description}>{product.description}</p>
                       <strong className={styles.price}>₹{product.price}</strong>
@@ -733,11 +751,23 @@ export default function AdminDashboard() {
                 {merchandise.length === 0 && <p>No merchandise yet.</p>}
                 {merchandise.map((m) => (
                   <div key={m.id} className={styles.card}>
-                    <img
-                      src={m.imageurl}
-                      alt={m.name}
-                      className={styles.image}
-                    />
+                    {isExternal(m.imageurl) ? (
+                      <img
+                        src={m.imageurl}
+                        alt={m.name}
+                        className={styles.image}
+                      />
+                    ) : (
+                      <Image
+                        src={m.imageurl || "/placeholder.png"}
+                        alt={m.name}
+                        className={styles.image}
+                        width={200}
+                        height={150}
+                        style={{ objectFit: "cover" }}
+                        priority={false}
+                      />
+                    )}
                     <h3>{m.name}</h3>
                     <p className={styles.description}>{m.description}</p>
                     <strong className={styles.price}>{m.coins} coins</strong>
