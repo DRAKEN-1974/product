@@ -1,9 +1,9 @@
-/* Logo Styles - New Addition */
+/* Logo Styles */
 .navbar-logo {
   display: flex;
   align-items: center;
   text-decoration: none;
-  height: 60px; /* Adjust based on your needs */
+  height: 60px;
 }
 
 .logo-image {
@@ -14,17 +14,17 @@
 }
 
 .scrolled .logo-image {
-  height: 50px; /* Slightly smaller when scrolled */
+  height: 50px;
 }
 
-/* Original Navbar Styles */
+/* Navbar Styles */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: #000000;
+  background: #000;
   transition: all 0.3s ease;
   padding: 0.5rem 0;
   animation: slideDown 0.5s ease-out;
@@ -35,7 +35,7 @@
 }
 
 .navbar.inner-page {
-  background: #000000;
+  background: #000;
 }
 
 .navbar-container {
@@ -47,11 +47,6 @@
   align-items: center;
 }
 
-.logo-accent {
-  color: #ffffff;
-  margin-left: 0.5rem;
-}
-
 .desktop-menu {
   display: flex;
   gap: 2rem;
@@ -59,7 +54,7 @@
 }
 
 .nav-link {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
@@ -68,11 +63,11 @@
 }
 
 .nav-link:hover {
-  color: #cccccc;
+  color: #ffb300;
 }
 
 .nav-link.active {
-  color: #cccccc;
+  color: #ffb300;
 }
 
 .nav-link.active::after {
@@ -82,7 +77,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #ffffff;
+  background-color: #ffb300;
 }
 
 .auth-buttons {
@@ -90,7 +85,6 @@
   gap: 1rem;
 }
 
-/* Remove text decoration from auth button links */
 .auth-buttons a {
   text-decoration: none;
 }
@@ -101,9 +95,9 @@
 .worker-button,
 .worker-login-button {
   padding: 0.5rem 1.2rem;
-  border: 2px solid #ffffff;
+  border: 2px solid #ffb300;
   background: transparent;
-  color: #ffffff;
+  color: #ffb300;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
@@ -117,153 +111,146 @@
 
 .login-button:hover,
 .worker-login-button:hover {
-  background: #ffffff;
-  color: #000000;
+  background: #ffb300;
+  color: #000;
   transform: translateY(-2px);
 }
 
 .logout-button {
-  border-color: #ffffff;
+  border-color: #ffb300;
 }
 
 .logout-button:hover {
-  background: #ffffff;
-  color: #000000;
+  background: #ffb300;
+  color: #000;
   transform: translateY(-2px);
 }
 
 .admin-button,
 .worker-button {
-  background: #ffffff;
-  color: #000000;
+  background: #ffb300;
+  color: #000;
 }
 
 .admin-button:hover,
 .worker-button:hover {
   background: transparent;
-  color: #ffffff;
+  color: #ffb300;
   transform: translateY(-2px);
 }
 
-/* Mobile Menu Styles */
-.mobile-menu-button {
+/* Hamburger styles */
+.hamburger {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  z-index: 1002;
+  align-items: center;
+  margin-left: 1rem;
 }
-
-.hamburger {
-  width: 24px;
-  height: 20px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .hamburger span {
-  width: 100%;
-  height: 2px;
-  background: #ffffff;
-  transition: all 0.3s ease;
+  display: block;
+  height: 4px;
+  width: 28px;
+  background: #ffb300; /* Bright amber for visibility */
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
-
-.hamburger.open span:first-child {
-  transform: rotate(45deg) translate(6px, 6px);
+.hamburger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
 }
-
 .hamburger.open span:nth-child(2) {
   opacity: 0;
 }
-
-.hamburger.open span:last-child {
-  transform: rotate(-45deg) translate(6px, -6px);
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+.hamburger:focus {
+  outline: 2px solid #ffb300;
 }
 
+/* Add a subtle background circle on hover for better visibility */
+.hamburger:hover {
+  background: rgba(255, 179, 0, 0.12);
+  border-radius: 50%;
+}
+
+/* Mobile menu */
 .mobile-menu {
   display: none;
   position: fixed;
-  top: 80px;
+  top: 70px;
   left: 0;
   right: 0;
-  background: #000000;
-  padding: 2rem;
+  background: #111;
   flex-direction: column;
-  gap: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.mobile-nav-link {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 1.2rem;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-.mobile-nav-link:hover {
-  color: #cccccc;
-  padding-left: 0.5rem;
-}
-
-/* Mobile auth button styles */
-.mobile-menu a {
-  text-decoration: none;
-}
-
-.mobile-login-button,
-.mobile-logout-button,
-.mobile-admin-button,
-.mobile-worker-button,
-.mobile-worker-login-button {
-  width: 100%;
-  padding: 1rem;
-  border: 2px solid #ffffff;
-  background: transparent;
-  color: #ffffff;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  margin-top: 0.5rem;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  text-decoration: none;
+  z-index: 1001;
+  padding: 2rem 0 1rem 0;
+  gap: 1.2rem;
+  border-top: 1px solid #222;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  transition: all 0.3s;
 }
-
-.mobile-login-button:hover,
-.mobile-worker-login-button:hover {
-  background: #ffffff;
-  color: #000000;
+.mobile-menu.open {
+  display: flex;
+}
+.mobile-menu .nav-link {
+  color: #ffb300;
+  font-size: 1.2rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(255, 179, 0, 0.08);
+  width: 100%;
+  text-align: center;
+}
+.mobile-menu .nav-link.active {
+  background: rgba(255, 179, 0, 0.08);
+  color: #fff;
+  border-radius: 4px;
+}
+.mobile-menu .auth-buttons {
+  flex-direction: column;
+  gap: 0.7rem;
+  width: 100%;
+  align-items: center;
+  margin-top: 1rem;
+}
+.mobile-menu .login-button,
+.mobile-menu .logout-button,
+.mobile-menu .admin-button,
+.mobile-menu .worker-button,
+.mobile-menu .worker-login-button {
+  width: 90%;
+  justify-content: center;
+  font-size: 1.1rem;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .navbar-logo {
-    height: 50px; /* Smaller logo on mobile */
-  }
-
+@media (max-width: 900px) {
   .desktop-menu {
     display: none;
   }
-
-  .mobile-menu-button {
-    display: block;
-  }
-
-  .mobile-menu {
+  .hamburger {
     display: flex;
   }
-
+  .mobile-menu {
+    display: none;
+  }
+  .mobile-menu.open {
+    display: flex;
+  }
   .navbar-container {
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 1.2rem;
+  }
+  .navbar-logo {
+    height: 48px;
   }
 }
 
@@ -285,46 +272,22 @@
 .admin-button:focus,
 .worker-button:focus,
 .worker-login-button:focus,
-.mobile-login-button:focus,
-.mobile-logout-button:focus,
-.mobile-admin-button:focus,
-.mobile-worker-button:focus,
-.mobile-worker-login-button:focus {
+.mobile-menu .login-button:focus,
+.mobile-menu .logout-button:focus,
+.mobile-menu .admin-button:focus,
+.mobile-menu .worker-button:focus,
+.mobile-menu .worker-login-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
-}
-
-/* Active States for Mobile Navigation */
-.mobile-nav-link.active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-  padding-left: 1rem;
-  border-radius: 4px;
-}
-
-/* Transitions */
-.nav-link,
-.login-button,
-.logout-button,
-.admin-button,
-.worker-button,
-.worker-login-button,
-.mobile-nav-link,
-.mobile-login-button,
-.mobile-logout-button,
-.mobile-admin-button,
-.mobile-worker-button,
-.mobile-worker-login-button {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 0 3px rgba(255, 179, 0, 0.3);
 }
 
 /* Worker Signup Button Styles */
 .worker-signup-button,
 .mobile-worker-signup-button {
   padding: 0.5rem 1.2rem;
-  border: 2px solid #ffffff;
+  border: 2px solid #ffb300;
   background: transparent;
-  color: #ffffff;
+  color: #ffb300;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
@@ -336,8 +299,8 @@
 }
 
 .worker-signup-button:hover {
-  background: #ffffff;
-  color: #000000;
+  background: #ffb300;
+  color: #000;
   transform: translateY(-2px);
 }
 
@@ -349,78 +312,6 @@
 }
 
 .mobile-worker-signup-button:hover {
-  background: #ffffff;
-  color: #000000;
-}
-
-
-
-
-
-
-
-
-
-
-/* Hamburger styles */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1002;
-}
-.hamburger span {
-  display: block;
-  height: 4px;
-  width: 100%;
-  background: #fff;
-  margin: 5px 0;
-  border-radius: 2px;
-  transition: 0.3s;
-}
-.hamburger.open span:nth-child(1) {
-  transform: translateY(9px) rotate(45deg);
-}
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.open span:nth-child(3) {
-  transform: translateY(-9px) rotate(-45deg);
-}
-
-/* Mobile menu */
-.mobile-menu {
-  display: none;
-  position: absolute;
-  top: 70px;
-  left: 0;
-  right: 0;
-  background: #222;
-  flex-direction: column;
-  align-items: center;
-  z-index: 1001;
-  padding: 24px 0 16px 0;
-  transition: all 0.3s;
-}
-.mobile-menu.open {
-  display: flex;
-}
-@media (max-width: 900px) {
-  .desktop-menu {
-    display: none;
-  }
-  .hamburger {
-    display: flex;
-  }
-  .mobile-menu {
-    display: none;
-  }
-  .mobile-menu.open {
-    display: flex;
-  }
+  background: #ffb300;
+  color: #000;
 }
