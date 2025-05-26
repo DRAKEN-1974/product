@@ -16,6 +16,7 @@ export default function Navbar() {
   const [user, setUser] = useState<User | null>(null)
   const [role, setRole] = useState<Role>(null)
   const [loading, setLoading] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false) // <-- hamburger state
   const pathname = usePathname()
   const router = useRouter()
 
@@ -74,6 +75,7 @@ export default function Navbar() {
     setUser(null)
     setRole(null)
     router.refresh()
+    setMenuOpen(false)
   }
 
   const renderAuthButtons = () => {
@@ -92,7 +94,7 @@ export default function Navbar() {
       if (role === 'admin') {
         return (
           <>
-            <Link href="/admin">
+            <Link href="/admin" onClick={() => setMenuOpen(false)}>
               <motion.button 
                 className="login-button"
                 whileHover={{ scale: 1.05 }}
@@ -115,7 +117,7 @@ export default function Navbar() {
       } else if (role === 'worker') {
         return (
           <>
-            <Link href="/worker">
+            <Link href="/worker" onClick={() => setMenuOpen(false)}>
               <motion.button 
                 className="login-button"
                 whileHover={{ scale: 1.05 }}
@@ -149,7 +151,7 @@ export default function Navbar() {
       }
     } else {
       return (
-        <Link href="/login">
+        <Link href="/login" onClick={() => setMenuOpen(false)}>
           <motion.button 
             className="login-button"
             whileHover={{ scale: 1.05 }}
@@ -170,7 +172,7 @@ export default function Navbar() {
       transition={{ duration: 0.5 }}
     >
       <div className="navbar-container">
-        <Link href="/" className="navbar-logo">
+        <Link href="/" className="navbar-logo" onClick={() => setMenuOpen(false)}>
           <Image
             src="/satishgaragewhite[1].png"
             alt="Sateesh Garage Logo"
@@ -180,6 +182,17 @@ export default function Navbar() {
             className="logo-image"
           />
         </Link>
+        {/* Hamburger icon */}
+        <button
+          className={`hamburger${menuOpen ? ' open' : ''}`}
+          aria-label="Toggle menu"
+          onClick={() => setMenuOpen((prev) => !prev)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        {/* Desktop menu */}
         <div className="desktop-menu">
           {navItems.map((item, index) => (
             <motion.div
@@ -195,6 +208,22 @@ export default function Navbar() {
                 {item.name}
               </Link>
             </motion.div>
+          ))}
+          <div className="auth-buttons">
+            {renderAuthButtons()}
+          </div>
+        </div>
+        {/* Mobile menu */}
+        <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`nav-link ${pathname === item.href ? 'active' : ''}`}
+              onClick={() => setMenuOpen(false)}
+            >
+              {item.name}
+            </Link>
           ))}
           <div className="auth-buttons">
             {renderAuthButtons()}
