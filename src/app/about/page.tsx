@@ -1,5 +1,6 @@
 'use client'
 
+import React from "react";
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { FaTools, FaCar, FaUserCog, FaClock } from 'react-icons/fa'
@@ -8,7 +9,7 @@ import Footer from '../components/Footer'
 import './about.css' // Make sure about.css is in the same directory as this file
 
 interface ServiceItem {
-  icon: JSX.Element;
+  icon: React.ReactElement;
   title: string;
   description: string;
 }
