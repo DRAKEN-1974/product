@@ -30,7 +30,7 @@ export default function ServicesSection() {
     {
       title: "Premium Service",
       description: "Comprehensive maintenance packages tailored to your vehicle's specific requirements.",
-      image: "/engine1.avif",
+      image: "/classic35067fc8b99756a5.avif",
       icon: "02"
     },
     {
