@@ -97,20 +97,27 @@ export default function Footer() {
           </div>
 
           <div className="footer-contact">
-            <a href="tel:+91 9616450975" className="contact-link">
-              +91 9616450975
+            <a href="tel:+1234567890" className="contact-link">
+              +1 (234) 567-890
             </a>
             <a href="mailto:contact@sateeshgarage.com" className="contact-link">
-              info@satishgarage.in
+              contact@satishgarage.com
             </a>
           </div>
         </motion.div>
       </div>
 
-      {/* 👇 Skillancer Footer Strip */}
-      <div className="skillancer-strip">
-        <img src="/skillancerlogo.avif" alt="Skillancer Private Limited" className="skillancer-footer-image" />
-      </div>
+      {/* 👇 Skillancer Footer Banner */}
+    {/* 👇 Skillancer Footer Badge */}
+<div className="skillancer-footer">
+  <div className="skillancer-content">
+    <img src="/skillancerlogo.avif" alt="Skillancer Logo" className="skillancer-logo" />
+    <p className="skillancer-text">
+      Developed By: <strong>SKILLANCER PRIVATE LIMITED</strong>
+    </p>
+  </div>
+</div>
+
     </footer>
   )
 }
