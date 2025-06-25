@@ -97,11 +97,11 @@ export default function Footer() {
           </div>
 
           <div className="footer-contact">
-            <a href="tel:+1234567890" className="contact-link">
-              +1 (234) 567-890
+            <a href="tel:++91 96164 50975" className="contact-link">
+              +91 96164 50975
             </a>
-            <a href="mailto:contact@sateeshgarage.com" className="contact-link">
-              contact@satishgarage.com
+            <a href="mailto:info@sateeshgarage.in" className="contact-link">
+              info@satishgarage.in
             </a>
           </div>
         </motion.div>
