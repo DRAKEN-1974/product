@@ -34,7 +34,7 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
           >
             <Link href="/" className="footer-logo">
-               SATISH
+              SATISH
               <span className="logo-accent">GARAGE</span>
             </Link>
             <p className="footer-description">
@@ -42,15 +42,9 @@ export default function Footer() {
               and cutting-edge technology.
             </p>
             <div className="footer-social">
-              <Link href="#" className="social-link">
-                Instagram
-              </Link>
-              <Link href="#" className="social-link">
-                Facebook
-              </Link>
-              <Link href="#" className="social-link">
-                Twitter
-              </Link>
+              <Link href="#" className="social-link">Instagram</Link>
+              <Link href="#" className="social-link">Facebook</Link>
+              <Link href="#" className="social-link">Twitter</Link>
             </div>
           </motion.div>
 
@@ -64,11 +58,7 @@ export default function Footer() {
             <div className="footer-links-column">
               <h3 className="footer-links-title">Services</h3>
               {footerLinks.services.map((link) => (
-                <Link 
-                  key={link.name}
-                  href={link.href}
-                  className="footer-link"
-                >
+                <Link key={link.name} href={link.href} className="footer-link">
                   {link.name}
                 </Link>
               ))}
@@ -76,11 +66,7 @@ export default function Footer() {
             <div className="footer-links-column">
               <h3 className="footer-links-title">Company</h3>
               {footerLinks.company.map((link) => (
-                <Link 
-                  key={link.name}
-                  href={link.href}
-                  className="footer-link"
-                >
+                <Link key={link.name} href={link.href} className="footer-link">
                   {link.name}
                 </Link>
               ))}
@@ -109,15 +95,21 @@ export default function Footer() {
               </Link>
             </div>
           </div>
+
           <div className="footer-contact">
-            <a href="tel:+1234567890" className="contact-link">
-              +1 (234) 567-890
+            <a href="tel:+91 9616450975" className="contact-link">
+              +91 9616450975
             </a>
             <a href="mailto:contact@sateeshgarage.com" className="contact-link">
-              contact@satishgarage.com
+              info@satishgarage.in
             </a>
           </div>
         </motion.div>
+      </div>
+
+      {/* 👇 Skillancer Footer Strip */}
+      <div className="skillancer-strip">
+        <img src="/skillancerlogo.avif" alt="Skillancer Private Limited" className="skillancer-footer-image" />
       </div>
     </footer>
   )
