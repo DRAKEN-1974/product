@@ -210,3 +210,77 @@
     font-size: 2rem;
   }
 }
+
+.vehicle-type-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+.vehicle-card {
+  transition: box-shadow 0.2s, transform 0.2s;
+  color: #111;
+}
+.vehicle-card:hover {
+  box-shadow: 0 4px 16px rgba(44, 62, 80, 0.08);
+  transform: translateY(-5px) scale(1.03);
+}
+.vehicle-card h2,
+.vehicle-card p {
+  color: #111;
+}
+
+
+
+
+/* Dropdown styling for Service and Category inside booking-form */
+.booking-form select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1rem;
+  color: #222;
+  transition: border-color 0.2s;
+  margin-bottom: 0.5rem;
+  outline: none;
+}
+
+.booking-form select:focus {
+  border-color: #2e86de;
+  box-shadow: 0 0 0 2px rgba(46,134,222,0.12);
+}
+
+.booking-form label {
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+
+/* Dropdown styling for Service and Category inside booking-form */
+.booking-form select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1rem;
+  color: #222;
+  transition: border-color 0.2s;
+  margin-bottom: 0.5rem;
+  outline: none;
+}
+
+.booking-form select:focus {
+  border-color: #2e86de;
+  box-shadow: 0 0 0 2px rgba(46,134,222,0.12);
+}
+
+.booking-form label {
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 0.3rem;
+  display: block;
+}
