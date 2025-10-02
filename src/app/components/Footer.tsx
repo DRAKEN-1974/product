@@ -113,7 +113,7 @@ export default function Footer() {
   <div className="skillancer-content">
     <img src="/skillancerlogo.avif" alt="Skillancer Logo" className="skillancer-logo" />
     <p className="skillancer-text">
-      Developed By: <strong>SKILLANCER PRIVATE LIMITED</strong>
+      Developed By: <strong>M.N.NANDINI INVENTION PRIVATE LIMITED</strong>
     </p>
   </div>
 </div>
