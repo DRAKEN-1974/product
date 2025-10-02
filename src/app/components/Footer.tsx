@@ -111,7 +111,7 @@ export default function Footer() {
     {/* 👇 Skillancer Footer Badge */}
 <div className="skillancer-footer">
   <div className="skillancer-content">
-    <img src="/skillancerlogo.avif" alt="Skillancer Logo" className="skillancer-logo" />
+    <img src="/mn.png" alt="Skillancer Logo" className="skillancer-logo" />
     <p className="skillancer-text">
       Developed By: <strong>M.N.NANDINI INVENTION PRIVATE LIMITED</strong>
     </p>
